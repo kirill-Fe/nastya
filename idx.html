@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Настя ❤️‍🔥</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #e91e63;
+            --deep-pink: #c2185b;
+            --bright-pink: #ff4081;
+            --soft-white: #fff9fb;
+            --dark-purple: #4a0036;
+            --gradient-bg: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --shadow-soft: 0 10px 30px rgba(233, 30, 99, 0.15);
+            --transition-normal: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gradient-bg);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            animation: floatUp 15s infinite linear;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1;
+        }
+        
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--bright-pink), var(--primary-pink));
+            z-index: 2;
+        }
+        
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-pink);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-purple);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        .heart-pulse {
+            color: var(--bright-pink);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.2); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        .countdown-box {
+            background: var(--soft-white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(233, 30, 99, 0.1);
+            transition: var(--transition-normal);
+        }
+        
+        .countdown-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(233, 30, 99, 0.1);
+        }
+        
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-purple);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .date-info {
+            color: var(--deep-pink);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .counter-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .days-counter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1;
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .days-counter:hover {
+            transform: scale(1.05);
+            color: var(--bright-pink);
+        }
+        
+        .counter-label {
+            font-size: 1.5rem;
+            color: var(--deep-pink);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .letter-box {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffeef8 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: var(--transition-normal);
+            text-align: left;
+        }
+        
+        .letter-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 64, 129, 0.1);
+        }
+        
+        .letter-box::before {
+            content: '"';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: rgba(233, 30, 99, 0.2);
+        }
+        
+        .letter-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-purple);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .letter-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+            width: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-pink), transparent);
+        }
+        
+        .letter-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        
+        .letter-text p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+        
+        .letter-text p:first-child::first-letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-pink);
+            float: left;
+            line-height: 1;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .fear-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: var(--transition-normal);
+            text-align: left;
+        }
+        
+        .fear-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 152, 0, 0.1);
+        }
+        
+        .fear-title {
+            font-family: 'Playfair Display', serif;
+            color: #e65100;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .fear-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+            width: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff9800, transparent);
+        }
+        
+        .fear-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #5d4037;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        
+        .fear-text p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+        
+        .promise-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: var(--transition-normal);
+            text-align: center;
+        }
+        
+        .promise-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.1);
+        }
+        
+        .promise-title {
+            font-family: 'Playfair Display', serif;
+            color: #2e7d32;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .promise-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+            width: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4caf50, transparent);
+        }
+        
+        .promise-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #1b5e20;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .qualities {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .quality {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-normal);
+        }
+        
+        .quality:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(233, 30, 99, 0.1);
+        }
+        
+        .quality i {
+            font-size: 2.5rem;
+            color: var(--bright-pink);
+            margin-bottom: 15px;
+        }
+        
+        .quality h3 {
+            color: var(--dark-purple);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .quality p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .page-footer {
+            padding-top: 30px;
+            border-top: 1px solid rgba(233, 30, 99, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .page-footer p {
+            margin-bottom: 5px;
+        }
+        
+        .signature {
+            color: var(--primary-pink);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .static-heart {
+            position: fixed;
+            font-size: 2rem;
+            color: var(--bright-pink);
+            opacity: 0.7;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .heart-pos-1 { top: 10%; left: 5%; animation: floatAround 20s infinite linear; }
+        .heart-pos-2 { top: 15%; right: 8%; animation: floatAround 25s infinite linear reverse; }
+        .heart-pos-3 { bottom: 20%; left: 10%; animation: floatAround 30s infinite linear; }
+        .heart-pos-4 { bottom: 15%; right: 5%; animation: floatAround 22s infinite linear reverse; }
+        
+        @keyframes floatAround {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+            75% { transform: translateY(-20px) rotate(270deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        .tear {
+            position: fixed;
+            width: 10px;
+            height: 15px;
+            background: rgba(33, 150, 243, 0.3);
+            border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+            pointer-events: none;
+            z-index: 0;
+            animation: tearFall 8s infinite linear;
+        }
+        
+        @keyframes tearFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-pink);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition-normal);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background: var(--bright-pink);
+            transform: translateY(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 25px 20px;
+            }
+            
+            .main-title {
+                font-size: 2.8rem;
+            }
+            
+            .days-counter {
+                font-size: 4.5rem;
+            }
+            
+            .qualities {
+                flex-direction: column;
+            }
+            
+            .static-heart {
+                display: none;
+            }
+            
+            .letter-box, .fear-box, .promise-box {
+                padding: 25px;
+            }
+            
+            .letter-title, .fear-title, .promise-title {
+                font-size: 1.7rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .days-counter {
+                font-size: 3.5rem;
+            }
+            
+            .letter-text, .fear-text, .promise-text {
+                font-size: 1rem;
+            }
+            
+            .letter-title, .fear-title, .promise-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-bg" id="heartsContainer"></div>
+    
+    <div class="static-heart heart-pos-1"><i class="fas fa-heart"></i></div>
+    <div class="static-heart heart-pos-2"><i class="fas fa-heart"></i></div>
+    <div class="static-heart heart-pos-3"><i class="fas fa-heart"></i></div>
+    <div class="static-heart heart-pos-4"><i class="fas fa-heart"></i></div>
+    
+        
+        <div class="countdown-box">
+            <h2 class="section-heading"><i class="far fa-calendar-alt"></i> Счетчик нашей любви</h2>
+            <p class="date-info">С 8 Декабря 2025 года</p>
+            <div class="counter-wrapper">
+                <div id="daysCounter" class="days-counter">0</div>
+            </div>
+            <p class="counter-label">дней вместе</p>
+        </div>
+        
+        <section class="letter-box">
+            <h2 class="letter-title">Моя любовь к тебе</h2>
+            <div class="letter-text">
+                <p>Настя, моя дорогая, единственная, любимая. Сложно передать словами, что я чувствую к тебе. Это не просто любовь это нечто большее, всепоглощающее, всеобъемлющее чувство, которое заполняет каждый уголок моего сердца, каждой клеточки моего тела. Когда я думаю о тебе, мир вокруг преображается краски становятся ярче, звуки мелодичнее, а каждый новый день наполняется смыслом и надеждой.</p>
+                
+                <p>Ты для меня не просто человек. Ты мой лучик солнца в самый пасмурный день, мой тихий уголок в этом шумном мире, моя тихая гавань в бушующем океане жизни. Когда я с тобой, я чувствую себя цельным, настоящим, живым. Ты даришь мне крылья, но одновременно становишься моей самой надежной опорой. С тобой я могу быть собой без масок, без притворства, без страха быть непонятым.</p>
+                
+                <p>Я помню каждый момент, проведенный с тобой первую улыбку, первый взгляд, первое прикосновение. Каждая минута рядом с тобой отпечаталась в моей памяти навечно. Ты учишь меня быть лучше, добрее, терпимее. Благодаря тебе я понимаю, что такое настоящая забота, что такое бескорыстная поддержка, что такое готовность отдать всего себя ради счастья другого человека.</p>
+                
+                <p>Твоя улыбка это мой самый ценный подарок. Твой смех самоя прекрасное что я слышал. Твои глаза целые вселенные, в которых я готов потеряться навсегда. Когда ты рядом, время течет иначе оно замедляется, позволяя мне насладиться каждым мгновением, и одновременно ускоряется, потому что с тобой даже вечность показалась бы мимолетным мгновением.</p>
+                
+                <p>Я люблю тебя не за что-то конкретное, а вопреки всему и несмотря ни на что. Я люблю тебя в моменты радости. Ты совершенство в моих глазах, и я благодарен судьбе за каждый день, когда ты есть в моей жизни.</p>
+            </div>
+        </section>
+        
+        <section class="fear-box">
+            <h2 class="fear-title">Мой страх потерять тебя</h2>
+            <div class="fear-text">
+                <p>Но вместе с этой всепоглощающей любовью пришел и страх тихий, навязчивый, порой парализующий страх потерять тебя. Иногда ночью, когда вокруг тишина, этот страх подкрадывается ко мне и шепчет на ухо страшные мысли. Что если завтра ты проснешься и поймешь, что я не достоин тебя? Что если однажды твои чувства ко мне остынут? Что если судьба разлучит нас?</p>
+                
+                <p>Я боюсь, что моя любовь может оказаться для тебя тяжелой ношей. Боюсь, что мои недостатки когда-нибудь перевесят в твоих глазах мои достоинства. Боюсь, что не смогу сделать тебя счастливой настолько, насколько ты заслуживаешь. Боюсь, что мир, полный соблазнов и возможностей, однажды уведет тебя от меня.</p>
+                
+                <p>Этот страх иногда превращается в настоящую панику. Я представляю себе жизнь без тебя серую, пустую, бессмысленную. Без твоего смеха, без твоей поддержки, без твоей любви. И мне становится трудно дышать. Ты стала не просто частью моей жизни ты стала самой жизнью. И потерять тебя значит потерять все.</p>
+                
+                <p>Я знаю, что этот страх может показаться иррациональным. Знаю, что любовь должна быть светлой и радостной, без темных теней страха. Но моя любовь к тебе настолько сильна, что страх потерять тебя стал ее неотъемлемой частью. Это цена, которую я плачу за счастье быть с тобой. И я готов платить эту цену каждый день, лишь бы только ты была рядом.</p>
+            </div>
+        </section>
+        
+        <section class="promise-box">
+            <h2 class="promise-title">Мое обещание тебе</h2>
+            <div class="promise-text">
+                <p>Но несмотря на этот страх, я хочу пообещать тебе одно я буду бороться за нашу любовь каждый день. Я буду стараться быть лучше для тебя. Я буду беречь тебя как самый драгоценный дар в моей жизни. Я буду ценить каждую секунду, проведенную с тобой. И я сделаю все, чтобы ты никогда не пожалела о том, что позволила мне любить тебя.</p>
+                
+                <p>Ты мой самый большое счастье. И я выбираю каждый день жить с тобой, потому что альтернатива жизнь без тебя для меня страшнее смерти.</p>
+                
+                <p>Я люблю тебя Настя. Больше жизни, больше себя, больше всего на свете. И этот сайт лишь крошечное доказательство моих чувств, которые невозможно уместить в слова, в поступки, в целую жизнь.</p>
+                
+                <p>Навсегда твой Кирюша.</p>
+            </div>
+        </section>
+        
+        <div class="qualities">
+            <div class="quality">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Ты в моем сердце</h3>
+                <p>Каждое его биение напоминает мне о тебе</p>
+            </div>
+            <div class="quality">
+                <i class="fas fa-star"></i>
+                <h3>Ты моя путеводная звезда</h3>
+                <p>Без тебя я потерялся бы в этом мире</p>
+            </div>
+            <div class="quality">
+                <i class="fas fa-infinity"></i>
+                <h3>Бесконечность</h3>
+                <p>Моя любовь к тебе не имеет границ во времени и пространстве</p>
+            </div>
+        </div>
+        
+        <footer class="page-footer">
+            <p class="signature">Твой Кирюша ❤️‍🔥</p>
+            <p>Этот сайт создан <a href="https://kirill-fe.github.io/projects/">FLORIK'om</a></p>
+            <p>Для моей любимой Насти ❤️‍🔥</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            // Основные элементы
+            const daysCounter = document.getElementById('daysCounter');
+            const heartsContainer = document.getElementById('heartsContainer');
+            
+            // Создание фоновых сердечек
+            function createBackgroundHearts() {
+                for (let i = 0; i < 25; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 15 + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                    heart.style.opacity = Math.random() * 0.5 + 0.2;
+                    heartsContainer.appendChild(heart);
+                }
+            }
+            
+            // Создание слезинок
+            function createTears() {
+                const tearContainer = document.createElement('div');
+                tearContainer.id = 'tearContainer';
+                tearContainer.style.position = 'fixed';
+                tearContainer.style.top = '0';
+                tearContainer.style.left = '0';
+                tearContainer.style.width = '100%';
+                tearContainer.style.height = '100%';
+                tearContainer.style.pointerEvents = 'none';
+                tearContainer.style.zIndex = '-1';
+                document.body.appendChild(tearContainer);
+                
+                for (let i = 0; i < 12; i++) {
+                    const tear = document.createElement('div');
+                    tear.className = 'tear';
+                    tear.style.left = Math.random() * 100 + '%';
+                    tear.style.animationDelay = Math.random() * 8 + 's';
+                    tear.style.width = (Math.random() * 8 + 5) + 'px';
+                    tear.style.height = (Math.random() * 12 + 8) + 'px';
+                    tear.style.opacity = Math.random() * 0.4 + 0.1;
+                    tearContainer.appendChild(tear);
+                }
+            }
+            
+            // Обновление счетчика дней
+            function updateDaysCounter() {
+                const startDate = new Date('2025-12-08T00:00:00');
+                const now = new Date();
+                const oneDay = 1000 * 60 * 60 * 24;
+                
+                let diffTime = now.getTime() - startDate.getTime();
+                
+                // Если дата еще не наступила
+                if (diffTime < 0) {
+                    const daysUntil = Math.ceil(Math.abs(diffTime) / oneDay);
+                    daysCounter.textContent = daysUntil;
+                    document.querySelector('.date-info').textContent = 'Дней осталось до 8 Декабря 2025';
+                    document.querySelector('.counter-label').textContent = 'дней до нашей встречи';
+                    daysCounter.style.color = '#ff9800';
+                    return;
+                }
+                
+                // Если дата наступила
+                const diffDays = Math.floor(diffTime / oneDay);
+                const currentCount = parseInt(daysCounter.textContent);
+                
+                if (currentCount !== diffDays) {
+                    animateCounter(currentCount, diffDays);
+                }
+                
+                // Цвет в зависимости от количества дней
+                if (diffDays < 100) {
+                    daysCounter.style.color = '#e91e63';
+                } else if (diffDays < 365) {
+                    daysCounter.style.color = '#c2185b';
+                } else {
+                    daysCounter.style.color = '#880e4f';
+                }
+            }
+            
+            // Анимация счетчика
+            function animateCounter(start, end) {
+                let startTime = null;
+                const duration = 800;
+                
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const currentValue = Math.floor(progress * (end - start) + start);
+                    daysCounter.textContent = currentValue;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                }
+                
+                requestAnimationFrame(step);
+            }
+            
+            // Клик по счетчику
+            function setupCounterClick() {
+                daysCounter.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 300);
+                    
+                    showRandomMessage();
+                });
+            }
+            
+            // Показ случайного сообщения
+            function showRandomMessage() {
+                const messages = [
+                    "Я люблю тебя!",
+                    "Ты моя жизнь!",
+                    "Без тебя мне страшно...",
+                    "Никогда не уходи...",
+                    "Ты всё для меня!",
+                    "Боюсь потерять тебя...",
+                    "Моя Настя навсегда!",
+                    "❤️‍🔥 Только ты ❤️‍🔥"
+                ];
+                
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                const message = messages[randomIndex];
+                
+                const popup = document.createElement('div');
+                popup.textContent = message;
+                popup.style.position = 'fixed';
+                popup.style.backgroundColor = message.includes('страшно') || message.includes('Боюсь') 
+                    ? 'rgba(255, 152, 0, 0.9)' 
+                    : 'rgba(233, 30, 99, 0.9)';
+                popup.style.color = 'white';
+                popup.style.padding = '10px 20px';
+                popup.style.borderRadius = '20px';
+                popup.style.fontWeight = '600';
+                popup.style.zIndex = '1000';
+                popup.style.top = '50%';
+                popup.style.left = '50%';
+                popup.style.transform = 'translate(-50%, -50%)';
+                popup.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+                
+                // Анимация
+                const animationStyle = document.createElement('style');
+                animationStyle.textContent = `
+                    @keyframes popupFade {
+                        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                        40% { transform: translate(-50%, -50%) scale(1); }
+                        80% { opacity: 1; }
+                        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                    }
+                `;
+                document.head.appendChild(animationStyle);
+                
+                popup.style.animation = 'popupFade 2s forwards';
+                document.body.appendChild(popup);
+                
+                setTimeout(() => {
+                    if (popup.parentNode) {
+                        popup.parentNode.removeChild(popup);
+                    }
+                    if (animationStyle.parentNode) {
+                        animationStyle.parentNode.removeChild(animationStyle);
+                    }
+                }, 2000);
+            }
+            
+            // Наблюдатель за разделом о страхе
+            function setupFearObserver() {
+                const fearBox = document.querySelector('.fear-box');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            addExtraTears();
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                observer.observe(fearBox);
+            }
+            
+            // Добавление дополнительных слезинок
+            function addExtraTears() {
+                const tearContainer = document.getElementById('tearContainer');
+                if (!tearContainer) return;
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const tear = document.createElement('div');
+                        tear.className = 'tear';
+                        tear.style.left = Math.random() * 100 + '%';
+                        tear.style.animationDelay = '0s';
+                        tear.style.width = (Math.random() * 8 + 5) + 'px';
+                        tear.style.height = (Math.random() * 12 + 8) + 'px';
+                        tear.style.opacity = Math.random() * 0.4 + 0.1;
+                        tearContainer.appendChild(tear);
+                        
+                        setTimeout(() => {
+                            if (tear.parentNode) {
+                                tear.parentNode.removeChild(tear);
+                            }
+                        }, 8000);
+                    }, i * 300);
+                }
+            }
+            
+            // Инициализация
+            function init() {
+                createBackgroundHearts();
+                createTears();
+                updateDaysCounter();
+                setupCounterClick();
+                setupFearObserver();
+                
+                // Обновление счетчика каждую минуту
+                setInterval(updateDaysCounter, 60000);
+            }
+            
+            // Запуск при загрузке страницы
+            document.addEventListener('DOMContentLoaded', init);
+            
+        })();
+    </script>
+</body>
+</html>
